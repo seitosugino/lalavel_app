@@ -4,22 +4,26 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Owner;
+use Illuminate\Support\Facades\DB;
 
 class OwnersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-     public function __construct()
+    public function __construct()
      {
          $this->middleware('auth:admin');
      }
     public function index()
     {
-        dd('オーナー一覧です');
+        $e_all = Owner::all();
+        $q_get = DB::table('owners')->select('name')->get();
+        $q_first = DB::table('owners')->select('name')->first();
+
+        $c_test = collect([
+            'name' => 'テスト'
+        ]);
+
+        dd($e_all, $q_get, $q_first, $c_test);
     }
 
     /**
