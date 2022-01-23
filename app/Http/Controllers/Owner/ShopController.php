@@ -51,7 +51,12 @@ class ShopController extends Controller
      {
         $imageFile = $request->image;
         if(!is_null($imageFile) && $imageFile->isValid()){
-            Storage::putFile('public/shops', $imageFile);
+            // Storage::putFile('public/shops', $imageFile);
+            $fileName = uniqid(rand().'_');
+            $extension = $imageFile->extension();
+            $fileNameToStore = $fileName. '.' . $extension;
+            $resizedImage = InterventionImage::make($imageFile)->resize(1920, 1080)->encode();
+            Storange::put('public/shops/' $fileNameToStore, $resizedImage);
         }
 
         return redirect()->route('owner.shops.index');
