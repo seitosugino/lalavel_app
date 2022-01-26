@@ -1,4 +1,4 @@
-## udemy Laravel講座
+## Udemy Laravel講座
 
 ## インストール方法
 
