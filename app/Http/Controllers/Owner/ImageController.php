@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Request\UploadImageRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,10 +21,10 @@ class ImageController extends Controller
              $id = $request->route()->parameter('image');
              if(!is_null($id)){
                  $imagesOwnerId = Image::findOrFail($id)->owner->id;
-                 $imageId = (int)$imagesOwnerId;
-                 if($imageId != Auth::id()){
-                     abort(404);
-                 }
+                    $imageId = (int)$imagesOwnerId;
+                    if($imageId != Auth::id()){
+                        abort(404);
+                    }
              }
              return $next($request);
          });
@@ -62,9 +62,9 @@ class ImageController extends Controller
         if(!is_null($imageFiles)){
             foreach($imageFiles as $imageFile){
                 $fileNameToStore = ImageService::upload($imageFile, 'products');
-                Image::class([
+                Image::create([
                     'owner_id' => Auth::id(),
-                    'filename' => fileNameToStore
+                    'filename' => $fileNameToStore
                 ]);
             }
         }

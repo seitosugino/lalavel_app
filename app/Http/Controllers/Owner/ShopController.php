@@ -8,7 +8,7 @@ use App\Models\Shop;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use InterventionImage;
-use App\Http\Request\UploadImageRequest;
+use App\Http\Requests\UploadImageRequest;
 use App\Services\ImageService;
 
 class ShopController extends Controller
@@ -45,7 +45,7 @@ class ShopController extends Controller
 
      public function edit($id)
      {
-         $shop = Shop::findOrFail($id);
+        $shop = Shop::findOrFail($id);
         // dd(Shop::findOrFail($id));
         return view('owner.shops.edit', compact('shop'));
      }
