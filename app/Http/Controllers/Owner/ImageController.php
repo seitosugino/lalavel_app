@@ -103,7 +103,9 @@ class ImageController extends Controller
         $image = Image::findOrFail($id);
         $filePath = 'public/products/' . $image->filename;
 
-        if(Storage::exists($filePath)){}
+        if(Storage::exists($filePath)){
+            Storage::delete($filePath);
+        }
         Image::findOrFail($id)->delete();
 
         return redirect()
